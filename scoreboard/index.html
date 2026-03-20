@@ -2,175 +2,192 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>SignalBleed // Plain Scoreboard</title>
+    <title>Scoreboard // Signal Only</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; color: #333; background: #fff; margin: 0; }
-        #top-bar { display: flex; justify-content: space-between; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px; }
+        body { font-family: -apple-system, system-ui, sans-serif; margin: 20px; background: #fff; color: #000; }
+        .controls { margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px; display: flex; justify-content: space-between; }
         
-        /* The Table - Fixed Alignment */
-        table { width: 100%; border-collapse: collapse; cursor: pointer; }
-        th { text-align: left; font-size: 0.75rem; text-transform: uppercase; padding: 10px; border-bottom: 2px solid #333; background: #f9f9f9; }
+        table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+        th { text-align: left; border-bottom: 2px solid #000; padding: 10px; font-size: 11px; text-transform: uppercase; }
         td { padding: 12px 10px; border-bottom: 1px solid #eee; }
-        .live-row { background: #fff9c4; font-weight: bold; }
+        tr:hover { background: #f9f9f9; cursor: pointer; }
+        .live { background: #fffbe6; }
         
-        /* Badges */
-        .status-badge { font-size: 0.7rem; padding: 2px 5px; border: 1px solid #333; font-weight: bold; background: #eee; }
-        .live-tag { background: #ff5252; color: white; border: none; }
-        .pp-tag { color: #ff0000; font-weight: 900; margin-left: 5px; }
-
-        /* Focus Mode Overlay */
+        /* Focus Mode */
         #focus-mode { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: #fff; z-index: 1000; flex-direction: column; padding: 40px; box-sizing: border-box;
+            background: #fff; z-index: 9999; padding: 40px; box-sizing: border-box; 
         }
-        #focus-mode.active { display: flex; }
-        .focus-score { font-size: 10rem; font-weight: 900; line-height: 1; }
-        .focus-team { font-size: 3rem; color: #666; }
-        .focus-situation { background: #f0f0f0; padding: 30px; font-size: 2rem; border-left: 10px solid #000; margin-top: 40px; }
-        .exit-btn { position: absolute; top: 20px; right: 20px; padding: 10px 20px; cursor: pointer; font-weight: bold; }
-
-        #log { margin-top: 20px; font-family: monospace; font-size: 0.8rem; color: #888; border-top: 1px solid #ddd; padding-top: 10px; }
+        .focus-content { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; }
+        .focus-score { font-size: 160px; font-weight: 900; display: flex; gap: 40px; align-items: center; line-height: 1; }
+        .focus-team { font-size: 40px; color: #888; text-transform: uppercase; }
+        
+        /* Signal Indicators */
+        .signal-box { margin-top: 40px; padding: 20px 40px; background: #000; color: #fff; font-size: 32px; font-weight: bold; text-align: center; min-width: 400px; }
+        .alert-red { background: #ff0000 !important; color: #fff !important; }
+        .base-diamond { font-family: monospace; font-size: 24px; color: #ccc; margin-top: 10px; }
+        .base-active { color: #000; font-weight: bold; }
+        
+        .close-btn { position: absolute; top: 20px; right: 20px; font-size: 16px; font-weight: bold; cursor: pointer; border: 1px solid #000; padding: 5px 15px; }
     </style>
 </head>
 <body>
 
-    <div id="top-bar">
+    <div class="controls">
         <div>
-            <strong>SIGNAL_BLEED</strong> // 
-            <select id="league" onchange="fetchScores()">
+            <select id="league" onchange="fetchData()">
                 <option value="hockey/nhl">NHL</option>
+                <option value="baseball/mlb">MLB</option>
                 <option value="basketball/nba">NBA</option>
                 <option value="football/nfl">NFL</option>
-                <option value="baseball/mlb">MLB</option>
             </select>
+            | <span id="timer">5</span>s
         </div>
-        <div>REFRESH_IN: <span id="timer">5</span>s</div>
+        <div id="status-light">SYNCED</div>
     </div>
 
-    <table>
+    <table id="main-table">
         <thead>
             <tr>
-                <th>State</th>
+                <th style="width: 80px;">Status</th>
                 <th>Away</th>
-                <th>Score</th>
+                <th style="width: 60px;">Score</th>
                 <th>Home</th>
-                <th>Score</th>
-                <th>Clock / Situation</th>
+                <th style="width: 60px;">Score</th>
+                <th>Signal / Situation</th>
             </tr>
         </thead>
-        <tbody id="rows"></tbody>
+        <tbody id="data-body"></tbody>
     </table>
 
-    <div id="log"></div>
-
     <div id="focus-mode">
-        <button class="exit-btn" onclick="closeFocus()">[ESC] EXIT FOCUS</button>
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-grow: 1;">
-            <div style="text-align: center;">
-                <div id="f-away-t" class="focus-team">AWAY</div>
-                <div id="f-away-s" class="focus-score">0</div>
+        <div class="close-btn" onclick="exitFocus()">CLOSE [ESC]</div>
+        <div class="focus-content">
+            <div id="f-clock" style="font-size: 24px; font-weight: bold;">--:--</div>
+            <div class="focus-score">
+                <div style="text-align:right;"><div id="f-away-t" class="focus-team">AWAY</div><div id="f-away-s">0</div></div>
+                <div style="color:#eee;">-</div>
+                <div style="text-align:left;"><div id="f-home-t" class="focus-team">HOME</div><div id="f-home-s">0</div></div>
             </div>
-            <div style="font-size: 4rem; color: #ccc;">VS</div>
-            <div style="text-align: center;">
-                <div id="f-home-t" class="focus-team">HOME</div>
-                <div id="f-home-s" class="focus-score">0</div>
-            </div>
+            <div id="f-signal" class="signal-box">STABLE SIGNAL</div>
+            <div id="f-extra" class="base-diamond"></div>
         </div>
-        <div id="f-clock" style="font-size: 2rem; font-weight: bold; margin-bottom: 10px;">--:--</div>
-        <div id="f-sit" class="focus-situation">WAITING FOR SIGNAL...</div>
     </div>
 
     <script>
-        let countdown = 5;
-        let activeGameId = null;
-        let signalLog = [];
+        let seconds = 5;
+        let activeId = null;
 
-        async function fetchScores() {
+        async function fetchData() {
             const league = document.getElementById('league').value;
-            const url = `https://site.api.espn.com/apis/site/v2/sports/${league}/scoreboard`;
-            
             try {
-                const res = await fetch(url);
+                const res = await fetch(`https://site.api.espn.com/apis/site/v2/sports/${league}/scoreboard`);
                 const data = await res.json();
-                render(data.events);
-                if (activeGameId) updateFocus(data.events);
-                countdown = 5;
-            } catch (e) { console.error("Signal Drop:", e); }
+                render(data.events || []);
+                if (activeId) updateFocus(data.events || []);
+                seconds = 5;
+            } catch (e) { document.getElementById('status-light').innerText = "OFFLINE"; }
+        }
+
+        // Clean up text - remove "pitches to", "giveaway by", etc.
+        function filterSignalText(text) {
+            if (!text) return "";
+            if (text.includes("pitches to")) return "At Bat";
+            if (text.includes("Giveaway")) return "Live Play";
+            return text;
         }
 
         function render(events) {
-            const container = document.getElementById('rows');
-            container.innerHTML = '';
-            
-            events.forEach(event => {
-                const game = event.competitions[0];
-                const state = event.status.type.state;
-                const home = game.competitors.find(c => c.homeAway === 'home');
-                const away = game.competitors.find(c => c.homeAway === 'away');
-                const isPP = event.status.type.shortDetail.includes("(PP)");
+            const tbody = document.getElementById('data-body');
+            tbody.innerHTML = events.map(e => {
+                const c = e.competitions[0];
+                const home = c.competitors.find(x => x.homeAway === 'home');
+                const away = c.competitors.find(x => x.homeAway === 'away');
+                const isLive = e.status.type.state === 'in';
+                const signal = filterSignalText(c.situation?.lastPlay?.text);
+                const isPP = e.status.type.shortDetail.includes("(PP)");
 
-                const tr = document.createElement('tr');
-                if (state === 'in') tr.className = 'live-row';
-                tr.onclick = () => openFocus(event.id);
-
-                tr.innerHTML = `
-                    <td><span class="status-badge ${state === 'in' ? 'live-tag' : ''}">${state.toUpperCase()}</span></td>
-                    <td>${away.team.abbreviation}</td>
-                    <td>${away.score}</td>
-                    <td>${home.team.abbreviation}</td>
-                    <td>${home.score}</td>
-                    <td>
-                        <div>${event.status.type.shortDetail} ${isPP ? '<span class="pp-tag">[PP]</span>' : ''}</div>
-                        <div style="font-size: 0.7rem; color: #666;">${game.situation?.lastPlay?.text || ''}</div>
-                    </td>
+                return `
+                    <tr class="${isLive ? 'live' : ''}" onclick="enterFocus('${e.id}')">
+                        <td>${e.status.type.state.toUpperCase()}</td>
+                        <td>${away.team.abbreviation}</td>
+                        <td><strong>${away.score}</strong></td>
+                        <td>${home.team.abbreviation}</td>
+                        <td><strong>${home.score}</strong></td>
+                        <td style="font-size: 12px;">
+                            <span style="color:${isPP ? 'red' : 'black'}; font-weight:bold;">${e.status.type.shortDetail}</span><br>
+                            ${signal}
+                        </td>
+                    </tr>
                 `;
-                container.appendChild(tr);
-            });
+            }).join('');
         }
 
-        function openFocus(id) {
-            activeGameId = id;
-            document.getElementById('focus-mode').classList.add('active');
-            fetchScores();
+        function enterFocus(id) {
+            activeId = id;
+            document.getElementById('focus-mode').style.display = 'block';
+            fetchData();
         }
 
-        function closeFocus() {
-            activeGameId = null;
-            document.getElementById('focus-mode').classList.remove('active');
-        }
+        function exitFocus() { activeId = null; document.getElementById('focus-mode').style.display = 'none'; }
 
         function updateFocus(events) {
-            const e = events.find(x => x.id === activeGameId);
+            const e = events.find(x => x.id === activeId);
             if (!e) return;
-            const g = e.competitions[0];
-            const h = g.competitors.find(c => c.homeAway === 'home');
-            const a = g.competitors.find(c => c.homeAway === 'away');
-
-            document.getElementById('f-away-t').innerText = a.team.abbreviation;
-            document.getElementById('f-away-s').innerText = a.score;
-            document.getElementById('f-home-t').innerText = h.team.abbreviation;
-            document.getElementById('f-home-s').innerText = h.score;
-            document.getElementById('f-clock').innerText = e.status.type.shortDetail;
-            document.getElementById('f-sit').innerText = (g.situation?.lastPlay?.text || "STABLE // NO NEW SIGNAL").toUpperCase();
+            const c = e.competitions[0];
+            const sit = c.situation;
+            const home = c.competitors.find(x => x.homeAway === 'home');
+            const away = c.competitors.find(x => x.homeAway === 'away');
             
-            // Highlight Focus if something critical happens
-            if (e.status.type.shortDetail.includes("(PP)")) {
-                document.getElementById('f-sit').style.backgroundColor = "#ffebee";
-                document.getElementById('f-sit').style.color = "#d32f2f";
-            } else {
-                document.getElementById('f-sit').style.backgroundColor = "#f0f0f0";
-                document.getElementById('f-sit').style.color = "#333";
+            document.getElementById('f-away-t').innerText = away.team.abbreviation;
+            document.getElementById('f-away-s').innerText = away.score;
+            document.getElementById('f-home-t').innerText = home.team.abbreviation;
+            document.getElementById('f-home-s').innerText = home.score;
+            document.getElementById('f-clock').innerText = e.status.type.shortDetail;
+
+            const sigBox = document.getElementById('f-signal');
+            const extra = document.getElementById('f-extra');
+            sigBox.className = "signal-box";
+            extra.innerHTML = "";
+
+            // SPORT SPECIFIC LOGIC
+            if (document.getElementById('league').value === 'hockey/nhl') {
+                if (e.status.type.shortDetail.includes("(PP)")) {
+                    sigBox.innerText = "POWER PLAY";
+                    sigBox.classList.add('alert-red');
+                } else if (sit?.lastPlay?.text.includes("Empty Net")) {
+                    sigBox.innerText = "EMPTY NET";
+                    sigBox.classList.add('alert-red');
+                } else {
+                    sigBox.innerText = "EVEN STRENGTH";
+                }
+            } 
+            else if (document.getElementById('league').value === 'baseball/mlb') {
+                const b1 = sit?.onFirst ? "●" : "○";
+                const b2 = sit?.onSecond ? "●" : "○";
+                const b3 = sit?.onThird ? "●" : "○";
+                extra.innerHTML = `<div style="font-size:40px;">&nbsp;${b2}&nbsp;<br>${b3}&nbsp;&nbsp;&nbsp;${b1}</div><div>OUTS: ${sit?.outs || 0}</div>`;
+                
+                if (sit?.onFirst && sit?.onSecond && sit?.onThird) {
+                    sigBox.innerText = "BASES LOADED";
+                    sigBox.classList.add('alert-red');
+                } else {
+                    sigBox.innerText = "IN PLAY";
+                }
+            }
+            else {
+                sigBox.innerText = filterSignalText(sit?.lastPlay?.text) || "LIVE";
             }
         }
 
         setInterval(() => {
-            countdown--;
-            document.getElementById('timer').innerText = countdown;
-            if (countdown <= 0) fetchScores();
+            seconds--;
+            document.getElementById('timer').innerText = seconds;
+            if (seconds <= 0) fetchData();
         }, 1000);
 
-        window.addEventListener('keydown', (e) => { if (e.key === "Escape") closeFocus(); });
-        fetchScores();
+        window.addEventListener('keydown', (e) => { if (e.key === "Escape") exitFocus(); });
+        fetchData();
     </script>
 </body>
 </html>
