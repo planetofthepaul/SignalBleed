@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"/>
+<title>Crime in Simpsonville, SC — Crime Rates &amp; Safety Grade | CrimeScope</title>
+<meta name="description" content="Simpsonville, SC crime rate is 2,208 per 100K residents. Violent crime: 472. Property crime: 1,736. Safety grade: B."/>
+<link rel="canonical" href="https://signalbleed.net/crime/city/simpsonville-sc/"/>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Place", "name": "Simpsonville, SC", "description": "Crime statistics for Simpsonville, SC. Overall crime rate: 2208 per 100,000 residents.", "containedInPlace": {"@type": "AdministrativeArea", "name": "SC"}}</script>
+<style>
+:root{--bg:#0a0d11;--surface:#0f1319;--card:#111820;--text:#e8edf5;--muted:#8a96ab;--line:#1a2234;--brand:#60a5fa;--brand2:#34d399;--red:#ef4444;--orange:#f97316;--yellow:#eab308;--green:#22c55e;--shadow:0 8px 24px rgba(0,0,0,.4);--radius:12px}
+*{box-sizing:border-box;margin:0}html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--brand2);text-decoration:none}a:hover{text-decoration:underline}
+header{position:sticky;top:0;z-index:100;background:rgba(10,13,17,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.h-row{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:13px 20px;max-width:1140px;margin:0 auto}
+.brand{display:flex;gap:10px;align-items:center;font-weight:800;font-size:17px;letter-spacing:-.3px}
+.brand a{color:var(--text);text-decoration:none}.brand-icon{width:28px;height:28px;background:var(--brand);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.brand-icon svg{width:16px;height:16px}
+.nav{display:flex;gap:18px;font-size:14px;font-weight:500}.nav a{color:var(--muted);transition:color .15s}.nav a:hover{color:var(--text);text-decoration:none}
+footer{border-top:1px solid var(--line);padding:24px 20px;text-align:center;font-size:13px;color:var(--muted)}
+
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+.back-link{display:inline-block;margin:24px 0 0;font-size:14px;color:var(--brand2);font-weight:500}
+.city-hero-img{position:relative;width:100%;max-height:360px;overflow:hidden;background:var(--surface);border-radius:var(--radius);margin-top:16px}
+.city-hero-img img{width:100%;height:100%;object-fit:cover;display:block;max-height:360px;opacity:0;transition:opacity .4s}
+.city-hero-img img.loaded{opacity:1}
+.city-hero-img .shimmer{position:absolute;inset:0;background:linear-gradient(90deg,#0f1319 25%,#1a2540 50%,#0f1319 75%);background-size:800px 100%;animation:shimmer 1.5s infinite linear;border-radius:var(--radius)}
+@keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+.city-header{padding:24px 0 8px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.city-header h1{font-size:clamp(28px,5vw,40px);font-weight:800;letter-spacing:-.5px;line-height:1.15}
+.city-header .sub{font-size:15px;color:var(--muted);margin-top:4px}
+.grade-big{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;font-family:'JetBrains Mono',monospace;flex-shrink:0}
+.grade-a{background:rgba(34,197,94,.15);color:var(--green)}.grade-b{background:rgba(234,179,8,.15);color:var(--yellow)}
+.grade-c{background:rgba(249,115,22,.15);color:var(--orange)}.grade-d{background:rgba(239,68,68,.15);color:var(--red)}
+.stat-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);margin-top:20px}
+.stat-card-header{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.stat-card-header .label{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.stat-card-header .amount{font-size:40px;font-weight:800;font-family:'JetBrains Mono',monospace;letter-spacing:-1.5px;margin-top:4px}
+.stat-card-header .per{font-size:13px;color:var(--muted);margin-top:2px}
+.trend-badge{padding:6px 12px;border-radius:8px;font-size:13px;font-weight:700;font-family:'JetBrains Mono',monospace;display:flex;align-items:center;gap:4px;align-self:flex-start;margin-top:4px}
+.trend-down{background:rgba(34,197,94,.12);color:var(--green)}.trend-up{background:rgba(239,68,68,.12);color:var(--red)}
+.breakdown{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-top:20px}
+.breakdown-title{padding:16px 20px 0;font-size:16px;font-weight:700}
+.brow{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #151b26;flex-wrap:wrap;gap:8px}
+.brow:last-child{border-bottom:none}
+.brow .name{color:var(--muted);font-size:14px;display:flex;align-items:center;gap:8px}
+.brow .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.brow .val{font-weight:700;font-family:'JetBrains Mono',monospace;font-size:15px}
+.brow .natl{font-size:12px;color:var(--muted);margin-left:8px;font-family:'DM Sans',sans-serif}
+.vs-bar{width:80px;height:6px;background:#1a2234;border-radius:3px;overflow:hidden;margin-left:12px;flex-shrink:0}
+.vs-fill{height:100%;border-radius:3px}
+.trend-section{margin-top:28px}.trend-section h2{font-size:18px;font-weight:700;margin-bottom:12px}
+.chart{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;display:flex;align-items:flex-end;gap:8px;height:240px;position:relative}
+.chart-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.chart-bar{width:100%;border-radius:4px 4px 0 0;min-height:4px;transition:height .3s}
+.chart-yr{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.chart-val{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.compare-section{margin-top:28px}.compare-section h2{font-size:18px;font-weight:700;margin-bottom:12px}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.compare-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;text-align:center}
+.cmp-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.cmp-val{font-size:22px;font-weight:800;font-family:'JetBrains Mono',monospace;margin:6px 0 2px;letter-spacing:-1px}
+.cmp-name{font-size:12px;color:var(--muted)}
+.research{margin-top:28px}.research h2{font-size:18px;font-weight:700;margin-bottom:12px}
+.links-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.links-grid a{font-size:14px;padding:8px 0}
+.toolkit{margin:36px 0 0}.toolkit h2{font-size:18px;font-weight:700;margin-bottom:4px}
+.toolkit-sub{font-size:13px;color:var(--muted);margin-bottom:14px}
+.toolkit-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tk-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;display:flex;flex-direction:column;gap:8px;transition:border-color .15s;text-decoration:none;color:inherit}
+.tk-card:hover{border-color:#2b3a5a;text-decoration:none}
+.tk-head{display:flex;align-items:center;gap:10px}
+.tk-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tk-name{font-size:15px;font-weight:600;color:var(--text)}
+.tk-desc{font-size:13px;color:var(--muted);line-height:1.5}.tk-link{font-size:13px;color:var(--brand2);margin-top:auto}
+.nearby{margin:32px 0 40px}.nearby h2{font-size:18px;font-weight:700;margin-bottom:12px}
+.nearby-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ni{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;font-size:14px;text-decoration:none;color:inherit;transition:border-color .15s}
+.ni:hover{border-color:#2b3a5a;text-decoration:none}
+.ni-city{font-weight:600}.ni-rate{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--muted)}
+.ni-grade{font-size:12px;font-weight:700;padding:3px 7px;border-radius:6px;font-family:'JetBrains Mono',monospace}
+@media(max-width:640px){.compare-grid{grid-template-columns:1fr}.toolkit-grid{grid-template-columns:1fr}.nearby-list{grid-template-columns:1fr}.links-grid{grid-template-columns:1fr}.stat-card-header .amount{font-size:32px}}
+</style></head><body>
+<header><div class="h-row">
+<div class="brand"><div class="brand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0a0d11" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><a href="/crime/">CrimeScope</a></div>
+<nav class="nav"><a href="/crime/">Explorer</a><a href="/">Signalbleed</a></nav>
+</div></header>
+<main class="wrap">
+<a href="/crime/" class="back-link">&larr; All cities</a>
+<div class="city-hero-img" id="heroImg"><div class="shimmer" id="heroShimmer"></div><img id="heroPhoto" alt="Simpsonville, SC" src=""/></div>
+<div class="city-header"><div><h1>Simpsonville, SC</h1><div class="sub">Population 23,600 · South</div></div>
+<div class="grade-big grade-b">B</div></div>
+
+<div class="stat-card"><div class="stat-card-header"><div>
+<div class="label">Total crime rate</div><div class="amount">2,208</div><div class="per">per 100,000 residents</div>
+</div><div class="trend-badge trend-down"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 13l5 5 5-5M12 18V6"/></svg>16.7% vs last year</div></div></div>
+
+<div class="breakdown"><div class="breakdown-title">Crime Breakdown</div><div class="brow"><span class="name"><span class="dot" style="background:var(--red)"></span>Murder & manslaughter</span>
+        <span style="display:flex;align-items:center"><span class="val">12.0</span><span class="natl">nat'l avg 6.1</span>
+        <span class="vs-bar"><span class="vs-fill" style="width:79%;background:var(--red)"></span></span></span></div><div class="brow"><span class="name"><span class="dot" style="background:var(--red)"></span>Aggravated assault</span>
+        <span style="display:flex;align-items:center"><span class="val">346</span><span class="natl">nat'l avg 269</span>
+        <span class="vs-bar"><span class="vs-fill" style="width:51%;background:var(--orange)"></span></span></span></div><div class="brow"><span class="name"><span class="dot" style="background:var(--red)"></span>Robbery</span>
+        <span style="display:flex;align-items:center"><span class="val">111</span><span class="natl">nat'l avg 73</span>
+        <span class="vs-bar"><span class="vs-fill" style="width:61%;background:var(--red)"></span></span></span></div><div class="brow"><span class="name"><span class="dot" style="background:var(--orange)"></span>Burglary</span>
+        <span style="display:flex;align-items:center"><span class="val">222</span><span class="natl">nat'l avg 269</span>
+        <span class="vs-bar"><span class="vs-fill" style="width:33%;background:var(--yellow)"></span></span></span></div><div class="brow"><span class="name"><span class="dot" style="background:var(--yellow)"></span>Larceny-theft</span>
+        <span style="display:flex;align-items:center"><span class="val">1,208</span><span class="natl">nat'l avg 1,401</span>
+        <span class="vs-bar"><span class="vs-fill" style="width:34%;background:var(--yellow)"></span></span></span></div><div class="brow"><span class="name"><span class="dot" style="background:var(--orange)"></span>Motor vehicle theft</span>
+        <span style="display:flex;align-items:center"><span class="val">306</span><span class="natl">nat'l avg 282</span>
+        <span class="vs-bar"><span class="vs-fill" style="width:43%;background:var(--orange)"></span></span></span></div></div>
+
+<div class="trend-section"><h2>Crime Rate Trend</h2><div class="chart"><div class="chart-col"><div class="chart-val">2,427</div><div class="chart-bar" style="height:140px;background:#1a2234;"></div><div class="chart-yr">2020</div></div><div class="chart-col"><div class="chart-val">2,184</div><div class="chart-bar" style="height:126px;background:#1a2234;"></div><div class="chart-yr">2021</div></div><div class="chart-col"><div class="chart-val">2,218</div><div class="chart-bar" style="height:128px;background:#1a2234;"></div><div class="chart-yr">2022</div></div><div class="chart-col"><div class="chart-val">2,052</div><div class="chart-bar" style="height:118px;background:#1a2234;"></div><div class="chart-yr">2023</div></div><div class="chart-col"><div class="chart-val">2,208</div><div class="chart-bar" style="height:127px;background:rgba(96,165,250,.3);border:2px solid var(--brand);"></div><div class="chart-yr">2024</div></div></div></div>
+
+<div class="compare-section"><h2>How Simpsonville Compares</h2>
+<div class="compare-grid">
+<div class="compare-card"><div class="cmp-label">Simpsonville</div><div class="cmp-val" style="color:var(--yellow)">2,208</div><div class="cmp-name">per 100K</div></div>
+<div class="compare-card"><div class="cmp-label">SC avg</div><div class="cmp-val" style="color:var(--orange)">2,639</div><div class="cmp-name">per 100K</div></div>
+<div class="compare-card"><div class="cmp-label">National avg</div><div class="cmp-val" style="color:var(--green)">2,338</div><div class="cmp-name">per 100K</div></div>
+</div></div>
+
+<div class="research"><h2>Research Simpsonville</h2><div class="links-grid">
+<a href="https://en.wikipedia.org/wiki/Simpsonville" target="_blank" rel="noopener">Wikipedia →</a>
+<a href="https://www.google.com/search?q=Simpsonville+SC+crime+reddit" target="_blank" rel="noopener">Reddit discussions →</a>
+<a href="https://www.google.com/maps/search/Simpsonville+SC" target="_blank" rel="noopener">Google Maps →</a>
+<a href="https://www.google.com/search?q=Simpsonville+SC+police+department" target="_blank" rel="noopener">Police department →</a>
+</div></div>
+
+<div class="toolkit"><h2>Safety &amp; Moving Toolkit</h2><p class="toolkit-sub">Resources for people researching a move</p>
+<div class="toolkit-grid">
+<a class="tk-card" href="https://simplisafe.com" target="_blank" rel="noopener sponsored"><div class="tk-head"><div class="tk-icon" style="background:#3b82f6"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><span class="tk-name">SimpliSafe</span></div><p class="tk-desc">DIY home security. No contracts, 24/7 monitoring.</p><span class="tk-link">Compare plans →</span></a>
+<a class="tk-card" href="https://ring.com" target="_blank" rel="noopener sponsored"><div class="tk-head"><div class="tk-icon" style="background:#f59e0b"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><span class="tk-name">Ring</span></div><p class="tk-desc">Video doorbells and cameras. See who's at your door from anywhere.</p><span class="tk-link">Shop devices →</span></a>
+<a class="tk-card" href="https://redfin.com" target="_blank" rel="noopener sponsored"><div class="tk-head"><div class="tk-icon" style="background:#10b981"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><span class="tk-name">Redfin</span></div><p class="tk-desc">Search homes in safer neighborhoods with crime overlays.</p><span class="tk-link">Browse listings →</span></a>
+<a class="tk-card" href="https://lemonade.com" target="_blank" rel="noopener sponsored"><div class="tk-head"><div class="tk-icon" style="background:#8b5cf6"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg></div><span class="tk-name">Lemonade</span></div><p class="tk-desc">Renters and homeowners insurance in minutes.</p><span class="tk-link">Get a quote →</span></a>
+</div></div>
+
+<div class="nearby"><h2>Nearby Cities</h2><div class="nearby-list"><a href="/crime/city/charleston-sc/" class="ni"><div><span class="ni-city">Charleston, SC</span></div><div style="display:flex;align-items:center;gap:8px"><span class="ni-rate">2,498</span><span class="ni-grade" style="background:rgba(234,179,8,.12);color:var(--yellow)">B+</span></div></a><a href="/crime/city/columbia-sc/" class="ni"><div><span class="ni-city">Columbia, SC</span></div><div style="display:flex;align-items:center;gap:8px"><span class="ni-rate">2,837</span><span class="ni-grade" style="background:rgba(234,179,8,.12);color:var(--yellow)">B+</span></div></a><a href="/crime/city/rock-hill-sc/" class="ni"><div><span class="ni-city">Rock Hill, SC</span></div><div style="display:flex;align-items:center;gap:8px"><span class="ni-rate">2,903</span><span class="ni-grade" style="background:rgba(234,179,8,.12);color:var(--yellow)">B</span></div></a><a href="/crime/city/greenville-sc/" class="ni"><div><span class="ni-city">Greenville, SC</span></div><div style="display:flex;align-items:center;gap:8px"><span class="ni-rate">3,023</span><span class="ni-grade" style="background:rgba(234,179,8,.12);color:var(--yellow)">B-</span></div></a></div></div>
+</main>
+<footer><div>&copy; 2026 CrimeScope · Data derived from FBI UCR Program · <a href="/" style="color:var(--muted)">Signalbleed</a></div></footer>
+
+<script>
+async function loadHeroImage(){
+  const imgEl=document.getElementById('heroPhoto');const shimmer=document.getElementById('heroShimmer');
+  async function tryWiki(title){try{const url='https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original|thumbnail&pithumbsize=1280&titles='+encodeURIComponent(title)+'&origin=*';const r=await fetch(url);if(!r.ok)return null;const j=await r.json();const pages=j?.query?.pages||{};const first=Object.values(pages)[0];return first?.original?.source||first?.thumbnail?.source||null;}catch(e){return null;}}
+  let src=await tryWiki('Simpsonville');
+  if(src){imgEl.src=src;imgEl.onload=()=>{imgEl.classList.add('loaded');shimmer?.remove();};}
+  else{shimmer?.remove();document.getElementById('heroImg').style.display='none';}
+}
+loadHeroImage();
+</script></body></html>
