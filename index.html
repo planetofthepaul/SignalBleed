@@ -7,276 +7,79 @@
   window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
   plausible.init()
 </script>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SignalBleed — U.S. Salary Data by Job and City | BLS OEWS</title>
-  <meta name="description" content="Compare average salaries for 800+ occupations across 240+ U.S. metro areas. Sourced from Bureau of Labor Statistics OEWS data.">
+  <title>SignalBleed — U.S. Salary Data by Job and State | BLS OEWS</title>
+  <meta name="description" content="Compare average salaries for 800+ occupations across all 50 U.S. states. Sourced from Bureau of Labor Statistics OEWS data.">
   <link rel="canonical" href="https://signalbleed.com/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Inter+Tight:wght@600;700;800;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
     :root {
       --bg: #F4F4F5;
       --surface: #FFFFFF;
-      --surface-alt: #FAFAFA;
       --text: #18181B;
       --text-muted: #71717A;
       --accent: #DC2626;
       --accent-light: #FEF2F2;
-      --accent-border: #FECACA;
       --border: #E4E4E7;
       --heading: 'Inter Tight', sans-serif;
       --body: 'DM Sans', sans-serif;
       --max-w: 860px;
       --radius: 6px;
     }
-
-    body {
-      font-family: var(--body);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      font-size: 15px;
-      -webkit-font-smoothing: antialiased;
-    }
-
+    body { font-family: var(--body); background: var(--bg); color: var(--text); line-height: 1.6; font-size: 15px; -webkit-font-smoothing: antialiased; }
     a { color: var(--text); text-decoration: underline; text-decoration-color: var(--border); text-underline-offset: 2px; }
     a:hover { text-decoration-color: var(--text); }
-
-    .nav {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-inner {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 0 24px;
-      height: 52px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .logo {
-      font-family: var(--heading);
-      font-weight: 900;
-      font-size: 17px;
-      color: var(--text);
-      text-decoration: none;
-      letter-spacing: -0.04em;
-      text-transform: uppercase;
-    }
+    .nav { background: var(--surface); border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 1080px; margin: 0 auto; padding: 0 24px; height: 52px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-family: var(--heading); font-weight: 900; font-size: 17px; color: var(--text); text-decoration: none; letter-spacing: -0.04em; text-transform: uppercase; }
     .logo span { color: var(--accent); }
-    .nav-links {
-      display: flex;
-      gap: 24px;
-      list-style: none;
-    }
-    .nav-links a {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-muted);
-      text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; text-transform: uppercase; letter-spacing: 0.03em; }
     .nav-links a:hover { color: var(--text); }
-
-    .hero {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 72px 24px 48px;
-    }
-    .hero h1 {
-      font-family: var(--heading);
-      font-weight: 900;
-      font-size: 52px;
-      line-height: 1.0;
-      margin-bottom: 20px;
-      letter-spacing: -0.04em;
-      text-transform: uppercase;
-    }
+    .hero { max-width: var(--max-w); margin: 0 auto; padding: 72px 24px 48px; }
+    .hero h1 { font-family: var(--heading); font-weight: 900; font-size: 52px; line-height: 1.0; margin-bottom: 20px; letter-spacing: -0.04em; text-transform: uppercase; }
     .hero h1 .accent { color: var(--accent); }
-    .hero-desc {
-      font-size: 18px;
-      color: var(--text-muted);
-      max-width: 500px;
-      line-height: 1.5;
-    }
-
-    .stats {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 24px 48px;
-      display: flex;
-      gap: 48px;
-    }
-    .stat-value {
-      font-family: var(--heading);
-      font-weight: 900;
-      font-size: 32px;
-      letter-spacing: -0.02em;
-    }
-    .stat-label {
-      font-family: var(--heading);
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      margin-top: 2px;
-    }
-
-    .section {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 24px 40px;
-    }
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 16px;
-    }
-    .section-header h2 {
-      font-family: var(--heading);
-      font-weight: 800;
-      font-size: 22px;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
-    }
-    .view-all {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-muted);
-      text-decoration: none;
-    }
+    .hero-desc { font-size: 18px; color: var(--text-muted); max-width: 500px; line-height: 1.5; }
+    .stats { max-width: var(--max-w); margin: 0 auto; padding: 0 24px 48px; display: flex; gap: 48px; }
+    .stat-value { font-family: var(--heading); font-weight: 900; font-size: 32px; letter-spacing: -0.02em; }
+    .stat-label { font-family: var(--heading); font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px; }
+    .section { max-width: var(--max-w); margin: 0 auto; padding: 0 24px 40px; }
+    .section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
+    .section-header h2 { font-family: var(--heading); font-weight: 800; font-size: 22px; letter-spacing: -0.02em; text-transform: uppercase; }
+    .view-all { font-size: 14px; font-weight: 600; color: var(--text-muted); text-decoration: none; }
     .view-all:hover { color: var(--text); }
-
-    .job-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-    .job-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      text-decoration: none;
-      color: var(--text);
-      transition: border-color 0.15s;
-    }
+    .job-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .job-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; text-decoration: none; color: var(--text); transition: border-color 0.15s; }
     .job-card:hover { border-color: var(--accent); }
-    .job-card-title {
-      font-weight: 600;
-      font-size: 15px;
-      margin-bottom: 8px;
-    }
-    .job-card-salary {
-      font-family: var(--heading);
-      font-weight: 800;
-      font-size: 24px;
-      letter-spacing: -0.02em;
-      margin-bottom: 4px;
-    }
-    .job-card-note {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .city-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
-    .city-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      text-decoration: none;
-      color: var(--text);
-      transition: border-color 0.15s;
-    }
-    .city-card:hover { border-color: var(--accent); }
-    .city-card-image {
-      width: 100%;
-      height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--text);
-      color: rgba(255,255,255,0.5);
-      font-family: var(--heading);
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-    .city-card-body { padding: 14px 16px; }
-    .city-card-name {
-      font-weight: 600;
-      font-size: 15px;
-      margin-bottom: 2px;
-    }
-    .city-card-count {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .about-strip {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 24px 64px;
-    }
-    .about-inner {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px;
-    }
-    .about-inner h2 {
-      font-family: var(--heading);
-      font-weight: 800;
-      font-size: 16px;
-      text-transform: uppercase;
-      letter-spacing: -0.01em;
-      margin-bottom: 8px;
-    }
-    .about-inner p {
-      font-size: 15px;
-      color: var(--text-muted);
-      line-height: 1.6;
-      max-width: 600px;
-    }
+    .job-card-title { font-weight: 600; font-size: 15px; margin-bottom: 8px; }
+    .job-card-salary { font-family: var(--heading); font-weight: 800; font-size: 24px; letter-spacing: -0.02em; margin-bottom: 4px; }
+    .job-card-note { font-size: 13px; color: var(--text-muted); }
+    .state-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .state-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; text-decoration: none; color: var(--text); transition: border-color 0.15s; }
+    .state-card:hover { border-color: var(--accent); }
+    .state-card-image { width: 100%; height: 100px; display: flex; align-items: center; justify-content: center; background: var(--text); color: rgba(255,255,255,0.5); font-family: var(--heading); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+    .state-card-body { padding: 14px 16px; }
+    .state-card-name { font-weight: 600; font-size: 15px; margin-bottom: 2px; }
+    .state-card-count { font-size: 13px; color: var(--text-muted); }
+    .about-strip { max-width: var(--max-w); margin: 0 auto; padding: 0 24px 64px; }
+    .about-inner { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; }
+    .about-inner h2 { font-family: var(--heading); font-weight: 800; font-size: 16px; text-transform: uppercase; letter-spacing: -0.01em; margin-bottom: 8px; }
+    .about-inner p { font-size: 15px; color: var(--text-muted); line-height: 1.6; max-width: 600px; }
     .about-inner a { color: var(--text-muted); }
-
-    .footer {
-      border-top: 1px solid var(--border);
-      background: var(--surface);
-      padding: 28px 24px;
-      text-align: center;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-    .footer a {
-      color: var(--text-muted);
-      text-decoration: none;
-      margin: 0 12px;
-    }
+    .footer { border-top: 1px solid var(--border); background: var(--surface); padding: 28px 24px; text-align: center; font-size: 13px; color: var(--text-muted); }
+    .footer a { color: var(--text-muted); text-decoration: none; margin: 0 12px; }
     .footer a:hover { text-decoration: underline; }
-
     @media (max-width: 600px) {
       .hero h1 { font-size: 36px; }
       .hero { padding: 48px 24px 36px; }
       .stats { gap: 24px; flex-wrap: wrap; }
       .stat-value { font-size: 24px; }
       .job-grid { grid-template-columns: 1fr; }
-      .city-grid { grid-template-columns: repeat(2, 1fr); }
+      .state-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -287,14 +90,14 @@
       <a href="/" class="logo">SIGNAL<span>BLEED</span></a>
       <ul class="nav-links">
         <li><a href="/jobs/">Jobs</a></li>
-        <li><a href="/cities/">Cities</a></li>
+        <li><a href="/cities/">States</a></li>
       </ul>
     </div>
   </nav>
 
   <section class="hero">
     <h1>Salary data.<br><span class="accent">No noise.</span></h1>
-    <p class="hero-desc">800+ occupations. 240+ metro areas. Straight from BLS Occupational Employment and Wage Statistics. No estimates, no self-reported surveys.</p>
+    <p class="hero-desc">800+ occupations. All 50 states. Straight from BLS Occupational Employment and Wage Statistics. No estimates, no self-reported surveys.</p>
   </section>
 
   <div class="stats">
@@ -303,8 +106,8 @@
       <div class="stat-label">Occupations</div>
     </div>
     <div>
-      <div class="stat-value">240+</div>
-      <div class="stat-label">Metro Areas</div>
+      <div class="stat-value">50</div>
+      <div class="stat-label">States + DC</div>
     </div>
     <div>
       <div class="stat-value">May 2024</div>
@@ -318,71 +121,71 @@
       <a href="/jobs/" class="view-all">All jobs &rarr;</a>
     </div>
     <div class="job-grid">
-      <a href="/salary/software-developer/austin-tx.html" class="job-card">
-        <div class="job-card-title">Software Developer</div>
-        <div class="job-card-salary">$103,710</div>
-        <div class="job-card-note">National avg &middot; 240 cities</div>
+      <a href="/jobs/software-developers.html" class="job-card">
+        <div class="job-card-title">Software Developers</div>
+        <div class="job-card-salary">$132,270</div>
+        <div class="job-card-note">National avg &middot; 50 states</div>
       </a>
-      <a href="/jobs/registered-nurse.html" class="job-card">
-        <div class="job-card-title">Registered Nurse</div>
-        <div class="job-card-salary">$89,010</div>
-        <div class="job-card-note">National avg &middot; 240 cities</div>
+      <a href="/jobs/registered-nurses.html" class="job-card">
+        <div class="job-card-title">Registered Nurses</div>
+        <div class="job-card-salary">$93,600</div>
+        <div class="job-card-note">National avg &middot; 50 states</div>
       </a>
-      <a href="/jobs/accountant.html" class="job-card">
-        <div class="job-card-title">Accountant</div>
+      <a href="/jobs/accountants-and-auditors.html" class="job-card">
+        <div class="job-card-title">Accountants &amp; Auditors</div>
         <div class="job-card-salary">$86,740</div>
-        <div class="job-card-note">National avg &middot; 238 cities</div>
+        <div class="job-card-note">National avg &middot; 50 states</div>
       </a>
-      <a href="/jobs/data-scientist.html" class="job-card">
-        <div class="job-card-title">Data Scientist</div>
-        <div class="job-card-salary">$108,020</div>
-        <div class="job-card-note">National avg &middot; 192 cities</div>
+      <a href="/jobs/data-scientists.html" class="job-card">
+        <div class="job-card-title">Data Scientists</div>
+        <div class="job-card-salary">$117,070</div>
+        <div class="job-card-note">National avg &middot; 50 states</div>
       </a>
-      <a href="/jobs/mechanical-engineer.html" class="job-card">
-        <div class="job-card-title">Mechanical Engineer</div>
-        <div class="job-card-salary">$99,510</div>
-        <div class="job-card-note">National avg &middot; 234 cities</div>
+      <a href="/jobs/mechanical-engineers.html" class="job-card">
+        <div class="job-card-title">Mechanical Engineers</div>
+        <div class="job-card-salary">$100,890</div>
+        <div class="job-card-note">National avg &middot; 50 states</div>
       </a>
-      <a href="/jobs/marketing-manager.html" class="job-card">
-        <div class="job-card-title">Marketing Manager</div>
-        <div class="job-card-salary">$157,620</div>
-        <div class="job-card-note">National avg &middot; 228 cities</div>
+      <a href="/jobs/marketing-managers.html" class="job-card">
+        <div class="job-card-title">Marketing Managers</div>
+        <div class="job-card-salary">$166,410</div>
+        <div class="job-card-note">National avg &middot; 50 states</div>
       </a>
     </div>
   </section>
 
   <section class="section">
     <div class="section-header">
-      <h2>Popular Cities</h2>
-      <a href="/cities/" class="view-all">All cities &rarr;</a>
+      <h2>Popular States</h2>
+      <a href="/cities/" class="view-all">All states &rarr;</a>
     </div>
-    <div class="city-grid">
-      <a href="/cities/austin-tx.html" class="city-card">
-        <div class="city-card-image">Austin, TX</div>
-        <div class="city-card-body">
-          <div class="city-card-name">Austin, TX</div>
-          <div class="city-card-count">780 jobs</div>
+    <div class="state-grid">
+      <a href="/cities/california.html" class="state-card">
+        <div class="state-card-image">California</div>
+        <div class="state-card-body">
+          <div class="state-card-name">California</div>
+          <div class="state-card-count">800+ jobs</div>
         </div>
       </a>
-      <a href="/cities/san-francisco-ca.html" class="city-card">
-        <div class="city-card-image">San Francisco, CA</div>
-        <div class="city-card-body">
-          <div class="city-card-name">San Francisco, CA</div>
-          <div class="city-card-count">760 jobs</div>
+      <a href="/cities/texas.html" class="state-card">
+        <div class="state-card-image">Texas</div>
+        <div class="state-card-body">
+          <div class="state-card-name">Texas</div>
+          <div class="state-card-count">800+ jobs</div>
         </div>
       </a>
-      <a href="/cities/new-york-ny.html" class="city-card">
-        <div class="city-card-image">New York, NY</div>
-        <div class="city-card-body">
-          <div class="city-card-name">New York, NY</div>
-          <div class="city-card-count">800 jobs</div>
+      <a href="/cities/new-york.html" class="state-card">
+        <div class="state-card-image">New York</div>
+        <div class="state-card-body">
+          <div class="state-card-name">New York</div>
+          <div class="state-card-count">800+ jobs</div>
         </div>
       </a>
-      <a href="/cities/denver-co.html" class="city-card">
-        <div class="city-card-image">Denver, CO</div>
-        <div class="city-card-body">
-          <div class="city-card-name">Denver, CO</div>
-          <div class="city-card-count">770 jobs</div>
+      <a href="/cities/florida.html" class="state-card">
+        <div class="state-card-image">Florida</div>
+        <div class="state-card-body">
+          <div class="state-card-name">Florida</div>
+          <div class="state-card-count">800+ jobs</div>
         </div>
       </a>
     </div>
@@ -391,7 +194,7 @@
   <div class="about-strip">
     <div class="about-inner">
       <h2>Where does this data come from?</h2>
-      <p>Every number on SignalBleed comes from the Bureau of Labor Statistics <a href="https://www.bls.gov/oes/" target="_blank" rel="noopener">Occupational Employment and Wage Statistics</a> program. The OEWS surveys ~1.1 million establishments annually to produce wage estimates for 800+ occupations across all U.S. metro areas. <a href="/methodology.html">Methodology &rarr;</a></p>
+      <p>Every number on SignalBleed comes from the Bureau of Labor Statistics <a href="https://www.bls.gov/oes/" target="_blank" rel="noopener">Occupational Employment and Wage Statistics</a> program. The OEWS surveys ~1.1 million establishments annually to produce wage estimates for 800+ occupations across all U.S. states. <a href="/methodology.html">Methodology &rarr;</a></p>
     </div>
   </div>
 
@@ -400,7 +203,7 @@
     <a href="/about.html">About</a>
     <a href="/methodology.html">Methodology</a>
     <a href="/jobs/">All Jobs</a>
-    <a href="/cities/">All Cities</a>
+    <a href="/cities/">All States</a>
   </footer>
 
 </body>
