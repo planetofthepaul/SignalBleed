@@ -75,7 +75,7 @@ def download():
         print("  Using cached BLS data")
         return cache
     print("  Downloading BLS OEWS May 2024 data (~45MB)...")
-    r = requests.get(BLS_URL, stream=True)
+    r = requests.get(BLS_URL, stream=True, headers={"User-Agent": "Mozilla/5.0 SignalBleed build script"})
     r.raise_for_status()
     with open(cache, "wb") as f:
         for chunk in r.iter_content(8192):
