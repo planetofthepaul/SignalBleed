@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Privacy-friendly analytics by Plausible -->
-<script async src="https://plausible.io/js/pa-pVqm0Mngxexo6TS-gXJN5.js"></script>
-<script>
-  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-  plausible.init()
-</script>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SignalBleed — U.S. Salary Data by Job and City | BLS OEWS</title>
@@ -206,9 +199,16 @@
     .city-card-image {
       width: 100%;
       height: 100px;
-      object-fit: cover;
-      display: block;
-      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--text);
+      color: rgba(255,255,255,0.5);
+      font-family: var(--heading);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
     }
     .city-card-body { padding: 14px 16px; }
     .city-card-name {
@@ -351,28 +351,28 @@
     </div>
     <div class="city-grid">
       <a href="/cities/austin-tx.html" class="city-card">
-        <img class="city-card-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Austin_Texas_Sunset_Skyline_2011.jpg/320px-Austin_Texas_Sunset_Skyline_2011.jpg" alt="Austin, TX" loading="lazy">
+        <div class="city-card-image">Austin, TX</div>
         <div class="city-card-body">
           <div class="city-card-name">Austin, TX</div>
           <div class="city-card-count">780 jobs</div>
         </div>
       </a>
       <a href="/cities/san-francisco-ca.html" class="city-card">
-        <img class="city-card-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/San_Francisco_from_the_Marin_Headlands_in_March_2019.jpg/320px-San_Francisco_from_the_Marin_Headlands_in_March_2019.jpg" alt="San Francisco, CA" loading="lazy">
+        <div class="city-card-image">San Francisco, CA</div>
         <div class="city-card-body">
           <div class="city-card-name">San Francisco, CA</div>
           <div class="city-card-count">760 jobs</div>
         </div>
       </a>
       <a href="/cities/new-york-ny.html" class="city-card">
-        <img class="city-card-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/New_york_times_square-terabass.jpg/320px-New_york_times_square-terabass.jpg" alt="New York, NY" loading="lazy">
+        <div class="city-card-image">New York, NY</div>
         <div class="city-card-body">
           <div class="city-card-name">New York, NY</div>
           <div class="city-card-count">800 jobs</div>
         </div>
       </a>
       <a href="/cities/denver-co.html" class="city-card">
-        <img class="city-card-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/2006-03-26_Denver_Skyline_I-25_background.jpg/320px-2006-03-26_Denver_Skyline_I-25_background.jpg" alt="Denver, CO" loading="lazy">
+        <div class="city-card-image">Denver, CO</div>
         <div class="city-card-body">
           <div class="city-card-name">Denver, CO</div>
           <div class="city-card-count">770 jobs</div>
