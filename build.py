@@ -30,9 +30,9 @@ from pathlib import Path
 # ---------------------------------------------------------------------------
 # CONFIG — UPDATE THESE WHEN NEW BLS DATA IS RELEASED
 # ---------------------------------------------------------------------------
-BLS_YEAR    = 2024                    # Year reflected in BLS data (NOT the release year)
-BLS_RELEASE = "May 2024"              # Human-readable label shown on the site
-BLS_ZIP     = "oesm24all.zip"         # Filename of the bulk zip on the BLS server
+BLS_YEAR    = 2025                    # Year reflected in BLS data (NOT the release year)
+BLS_RELEASE = "May 2025"              # Human-readable label shown on the site
+BLS_ZIP     = "oesm25all.zip"         # Filename of the bulk zip on the BLS server
 
 OUTPUT = Path("output")
 SITE   = "https://signalbleed.com"
