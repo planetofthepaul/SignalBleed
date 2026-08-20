@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About SignalBleed | U.S. Salary Data from BLS OEWS</title>
+<meta name="description" content="SignalBleed publishes U.S. salary data for 800+ occupations across all 50 states, sourced entirely from the Bureau of Labor Statistics OEWS program.">
+<link rel="canonical" href="https://signalbleed.com/about.html">
+<meta name="robots" content="index,follow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Inter+Tight:wght@600;700;800;900&display=swap" rel="stylesheet">
+<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-zL2LxD5lIwlbUZGyyXwfO.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+<style>*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg:#F4F4F5;--surface:#FFF;--text:#18181B;--text-muted:#71717A;
+  --accent:#DC2626;--border:#E4E4E7;--border-subtle:#F4F4F5;
+  --heading:'Inter Tight',sans-serif;--body:'DM Sans',sans-serif;--max-w:720px;--radius:6px;
+}
+body{font-family:var(--body);background:var(--bg);color:var(--text);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
+a{color:var(--text);text-decoration:underline;text-decoration-color:var(--border);text-underline-offset:2px}
+a:hover{text-decoration-color:var(--text)}
+.nav{background:var(--surface);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1080px;margin:0 auto;padding:0 24px;height:52px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--heading);font-weight:900;font-size:17px;color:var(--text);text-decoration:none;letter-spacing:-0.04em;text-transform:uppercase}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{font-size:13px;font-weight:600;color:var(--text-muted);text-decoration:none;text-transform:uppercase;letter-spacing:0.03em}
+.nav-links a:hover{color:var(--text)}
+.footer{border-top:1px solid var(--border);background:var(--surface);padding:28px 24px;text-align:center;font-size:13px;color:var(--text-muted)}
+.footer a{color:var(--text-muted);text-decoration:none;margin:0 12px}
+.footer a:hover{text-decoration:underline}
+.page{max-width:var(--max-w);margin:0 auto;padding:48px 24px 64px}
+.page h1{font-family:var(--heading);font-weight:900;font-size:36px;text-transform:uppercase;letter-spacing:-0.03em;margin-bottom:8px}
+.subtitle{font-size:14px;color:var(--text-muted);margin-bottom:32px}
+.page h2{font-family:var(--heading);font-weight:800;font-size:18px;text-transform:uppercase;letter-spacing:-0.02em;margin-top:32px;margin-bottom:12px}
+.page p{margin-bottom:14px;color:var(--text)}
+.page ul{margin:0 0 14px 20px}
+.page li{margin-bottom:6px}
+.page strong{font-weight:600}
+.page code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--border-subtle);border:1px solid var(--border);border-radius:3px;padding:1px 5px}
+.callout{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin:24px 0}
+.callout p:last-child{margin-bottom:0}
+@media(max-width:600px){.page h1{font-size:28px}}</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner"><a href="/" class="logo">SIGNAL<span>BLEED</span></a><ul class="nav-links"><li><a href="/jobs/">Jobs</a></li><li><a href="/states/">States</a></li></ul></div></nav>
+
+<div class="page">
+<h1>About SignalBleed</h1>
+<p class="subtitle">Last updated: August 20, 2026</p>
+
+<p>SignalBleed publishes wage data for more than 800 U.S. occupations across all 50 states and the District of Columbia. Every number on the site comes from a single source: the Bureau of Labor Statistics <a href="https://www.bls.gov/oes/" target="_blank" rel="noopener">Occupational Employment and Wage Statistics</a> (OEWS) program.</p>
+
+<h2>Why this site exists</h2>
+<p>If you search for what a job pays, most of what you find is self-reported. Someone types a number into a form, a site averages those numbers, and the result gets presented as fact. Self-reported data skews in predictable ways — people who are happy with their pay are more likely to report it, samples cluster in tech and in large metros, and there is no verification step anywhere in the chain.</p>
+<p>The federal government already runs a rigorous, nationally representative wage survey. It is free, public, and updated every year. It is also distributed as a 45MB archive of spreadsheets with column headers like <strong>A_PCT10</strong>, which is not how most people want to look up what a welder makes in Ohio.</p>
+<p>SignalBleed is a thin, readable layer over that dataset. We do not adjust the numbers, model them, or blend them with anything else. If a figure appears here, it appears in the BLS release.</p>
+
+<h2>What we do and don't do</h2>
+<ul>
+<li><strong>We do</strong> publish mean annual wage, implied hourly wage, and the 10th and 90th percentile for each occupation-and-state pair BLS reports.</li>
+<li><strong>We do</strong> show how each state compares to the national figure for the same occupation.</li>
+<li><strong>We don't</strong> collect salary submissions from visitors, and we have no plans to.</li>
+<li><strong>We don't</strong> adjust wages for cost of living, experience level, employer size, or credentials. BLS does not break the data out that way, and inventing those splits would mean publishing estimates rather than measurements.</li>
+<li><strong>We don't</strong> accept payment to change, remove, or promote any figure on the site.</li>
+</ul>
+<p>Our <a href="/methodology.html">methodology page</a> covers exactly which BLS file we use, how each number is derived, and where the dataset has known limits.</p>
+
+<h2>How the site is built</h2>
+<p>SignalBleed is a static website. A build script downloads the current OEWS release directly from the BLS server, filters it to state-level detailed occupations, and generates every page from that data. There is no database and no server-side code — each page is a plain HTML file. Once a year, when BLS publishes a new release, the script runs again and the whole site is regenerated.</p>
+<p>The tradeoff of generating pages this way is that coverage is broad and consistent, but no page carries commentary that isn't derivable from the underlying data. That's deliberate. We would rather cover every occupation accurately than write essays about a handful of them.</p>
+
+<h2>How SignalBleed makes money</h2>
+<p>The site may carry advertising and affiliate links. Any paid or affiliate link is marked with a <code>rel="sponsored"</code> attribute in the page's HTML, per Google's link-disclosure guidelines. Advertising has no influence over which occupations we cover or what figures we publish — every page is generated from the BLS file before any advertising is placed on it.</p>
+<p>See our <a href="/privacy.html">privacy policy</a> for what advertising partners may collect when you visit.</p>
+
+<h2>Corrections</h2>
+<div class="callout">
+<p>If a figure on SignalBleed doesn't match the BLS source file, that's a bug and we want to hear about it. Email <a href="mailto:hello@signalbleed.com">hello@signalbleed.com</a> with the page URL and what looks wrong.</p>
+<p>If a figure matches BLS but seems wrong to you based on your own experience of the field, that's usually a limitation of the survey rather than an error. The <a href="/methodology.html">methodology page</a> explains the most common cases — top-coded high earners, excluded self-employed workers, and suppressed small samples.</p>
+</div>
+
+<h2>Contact</h2>
+<p>General questions, corrections, and press: <a href="mailto:hello@signalbleed.com">hello@signalbleed.com</a></p>
+
+<h2>Source and attribution</h2>
+<p>Wage data is from the U.S. Bureau of Labor Statistics, Occupational Employment and Wage Statistics program, May 2025 release. BLS data is in the public domain. SignalBleed is not affiliated with, endorsed by, or sponsored by the Bureau of Labor Statistics or any U.S. government agency.</p>
+
+</div>
+
+<footer class="footer"><span>&copy; 2026 SignalBleed</span><a href="/about.html">About</a><a href="/methodology.html">Methodology</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/jobs/">All Jobs</a><a href="/states/">All States</a></footer>
+</body>
+</html>

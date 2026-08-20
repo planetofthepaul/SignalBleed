@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Methodology — How SignalBleed Calculates Salary Data | SignalBleed</title>
+<meta name="description" content="Exactly which BLS OEWS file SignalBleed uses, how every figure is derived, and the known limitations of the underlying wage survey.">
+<link rel="canonical" href="https://signalbleed.com/methodology.html">
+<meta name="robots" content="index,follow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Inter+Tight:wght@600;700;800;900&display=swap" rel="stylesheet">
+<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-zL2LxD5lIwlbUZGyyXwfO.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+<style>*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg:#F4F4F5;--surface:#FFF;--text:#18181B;--text-muted:#71717A;
+  --accent:#DC2626;--border:#E4E4E7;--border-subtle:#F4F4F5;
+  --heading:'Inter Tight',sans-serif;--body:'DM Sans',sans-serif;--max-w:720px;--radius:6px;
+}
+body{font-family:var(--body);background:var(--bg);color:var(--text);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased}
+a{color:var(--text);text-decoration:underline;text-decoration-color:var(--border);text-underline-offset:2px}
+a:hover{text-decoration-color:var(--text)}
+.nav{background:var(--surface);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1080px;margin:0 auto;padding:0 24px;height:52px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--heading);font-weight:900;font-size:17px;color:var(--text);text-decoration:none;letter-spacing:-0.04em;text-transform:uppercase}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{font-size:13px;font-weight:600;color:var(--text-muted);text-decoration:none;text-transform:uppercase;letter-spacing:0.03em}
+.nav-links a:hover{color:var(--text)}
+.footer{border-top:1px solid var(--border);background:var(--surface);padding:28px 24px;text-align:center;font-size:13px;color:var(--text-muted)}
+.footer a{color:var(--text-muted);text-decoration:none;margin:0 12px}
+.footer a:hover{text-decoration:underline}
+.page{max-width:var(--max-w);margin:0 auto;padding:48px 24px 64px}
+.page h1{font-family:var(--heading);font-weight:900;font-size:36px;text-transform:uppercase;letter-spacing:-0.03em;margin-bottom:8px}
+.subtitle{font-size:14px;color:var(--text-muted);margin-bottom:32px}
+.page h2{font-family:var(--heading);font-weight:800;font-size:18px;text-transform:uppercase;letter-spacing:-0.02em;margin-top:32px;margin-bottom:12px}
+.page h3{font-family:var(--heading);font-weight:700;font-size:15px;margin-top:20px;margin-bottom:6px}
+.page p{margin-bottom:14px;color:var(--text)}
+.page ul,.page ol{margin:0 0 14px 20px}
+.page li{margin-bottom:6px}
+.page strong{font-weight:600}
+.page code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--border-subtle);border:1px solid var(--border);border-radius:3px;padding:1px 5px}
+.deftable{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:14px}
+.deftable th{font-family:var(--heading);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--text-muted);text-align:left;padding:8px 10px;border-bottom:1px solid var(--border)}
+.deftable td{padding:10px;border-bottom:1px solid var(--border-subtle);vertical-align:top}
+.deftable td:first-child{white-space:nowrap;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px}
+.callout{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;margin:24px 0}
+.callout p:last-child{margin-bottom:0}
+@media(max-width:600px){.page h1{font-size:28px}.deftable td:first-child{white-space:normal}}</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner"><a href="/" class="logo">SIGNAL<span>BLEED</span></a><ul class="nav-links"><li><a href="/jobs/">Jobs</a></li><li><a href="/states/">States</a></li></ul></div></nav>
+
+<div class="page">
+<h1>Methodology</h1>
+<p class="subtitle">Last updated: August 20, 2026 &middot; Current data: BLS OEWS, May 2025 release</p>
+
+<p>This page documents exactly where SignalBleed's numbers come from and how each one is derived. If you want to check our work, everything below is reproducible from the public BLS file.</p>
+
+<h2>The source</h2>
+<p>All wage figures come from the U.S. Bureau of Labor Statistics <a href="https://www.bls.gov/oes/" target="_blank" rel="noopener">Occupational Employment and Wage Statistics</a> (OEWS) program. OEWS is a semiannual survey of nonfarm establishments, collected by BLS together with state workforce agencies. Responses are gathered online, by mail, email, phone, or in person. Each annual release combines six semiannual panels collected over a three-year cycle &mdash; a final sample of roughly 1.1 million establishments &mdash; to produce estimates for approximately 830 detailed occupations at national, state, and metropolitan levels.</p>
+<p>We use the <strong>May 2025 release</strong>, downloaded as the complete national archive directly from the BLS server. A note on naming: BLS labels each release by its <em>reference period</em>, not its publication date. The May 2025 release describes wages as of May 2025 and was published the following year. When our pages say "May 2025," that is the BLS reference period — it is the most recent data BLS has published.</p>
+
+<h2>What we filter to</h2>
+<p>The BLS archive contains national, state, territory, metropolitan, and nonmetropolitan rows, at several levels of occupational aggregation. SignalBleed uses a narrow slice:</p>
+<ul>
+<li><strong>Area type 2 (state)</strong> only — the 50 states plus the District of Columbia. We exclude national rows, territories, and metro/nonmetro areas.</li>
+<li><strong>Detailed occupations</strong> only — the most granular SOC level. We exclude major, minor, broad, and total aggregation groups, so occupations are never double-counted.</li>
+<li>Rows with <strong>no reported mean annual wage</strong> are dropped entirely rather than shown as blank or zero.</li>
+</ul>
+<p>This is why some occupations appear for fewer than 51 states. If BLS suppressed or did not publish an estimate for that occupation in that state, we have no page for it. We would rather omit a combination than fill it with an estimate.</p>
+
+<h2>What each number on a salary page means</h2>
+<table class="deftable">
+<thead><tr><th>Figure</th><th>Definition</th></tr></thead>
+<tbody>
+<tr><td>Mean Annual</td><td>The BLS <code>A_MEAN</code> field: the average annual wage for that occupation in that state. Reproduced exactly as published, with no adjustment.</td></tr>
+<tr><td>Hourly Wage</td><td>The BLS <code>H_MEAN</code> field: the mean hourly wage as published by BLS. We display it directly rather than deriving it from the annual figure. Note that BLS itself generally computes the annual wage as the hourly wage &times; 2,080 hours, so the two are consistent by construction for most occupations. For occupations that don't typically work year-round full-time, BLS may publish only one of the two.</td></tr>
+<tr><td>10th Percentile</td><td>The BLS <code>A_PCT10</code> field: 10% of workers in that occupation and state earn at or below this figure. We label it "entry level" as shorthand. It correlates with early-career pay but is not a measure of experience — it is simply the bottom of the wage distribution.</td></tr>
+<tr><td>90th Percentile</td><td>The BLS <code>A_PCT90</code> field: 10% of workers earn at or above this figure. Labeled "senior level" on the same shorthand basis.</td></tr>
+<tr><td>vs national</td><td>Percentage difference between the state's mean and the national mean for the same occupation.</td></tr>
+</tbody>
+</table>
+
+<h3>How the national average is calculated</h3>
+<p>The national figure shown for comparison is an <strong>employment-weighted average of the state means</strong>: each state's mean wage is weighted by its total employment in that occupation, and the weighted values are summed and divided by total employment across states.</p>
+<p>This is worth being precise about, because it is not identical to the national row BLS publishes in the same file. BLS computes its national estimate directly from the full underlying sample rather than by aggregating state figures, so the two methods can differ slightly. In practice they land very close together, but where they differ, ours is a state-weighted aggregate and theirs is the authoritative national number. If you need the official national figure, use the <a href="https://www.bls.gov/oes/current/oes_nat.htm" target="_blank" rel="noopener">BLS national table</a> directly.</p>
+
+<h2>Known limitations of the data</h2>
+<p>These are limitations of the OEWS survey itself, not of our processing. They apply equally to any site built on this dataset.</p>
+
+<h3>Self-employed workers are excluded</h3>
+<p>OEWS surveys establishments about their employees. Independent contractors, freelancers, sole proprietors, and business owners are not counted. For occupations with heavy self-employment — photographers, writers, real estate agents, many trades — the published figures describe only the employed portion of the workforce and can differ substantially from what practitioners in the field actually earn.</p>
+
+<h3>Very high wages are top-coded</h3>
+<p>BLS places reported wages into intervals, and the highest interval is open-ended at $115.00 per hour or $239,200 per year. Historically, any estimate landing at or above that ceiling was published with a footnote instead of a specific number, which compressed reported figures for high-paying occupations — surgeons, chief executives, and some finance roles were the clearest cases.</p>
+<p>This changed with the release we use. BLS states that beginning with the May 2025 estimates, a switch in wage processing methodology allowed the program to publish specific values for many percentiles that previously carried only the threshold footnote. So top-coding affects the current data less than it affected earlier releases — but the open-ended top interval still exists, and figures at the very top of the distribution should still be read as conservative.</p>
+
+<h3>Small samples are suppressed</h3>
+<p>BLS withholds estimates that would not meet its disclosure or reliability standards, typically where too few establishments reported. This is why rare occupations show up in only a handful of states.</p>
+
+<h3>Wages, not total compensation</h3>
+<p>OEWS covers straight-time gross pay. BLS <strong>includes</strong> base rate, cost-of-living allowances, guaranteed pay, hazardous-duty pay, incentive pay (including commissions and production bonuses), and tips. BLS <strong>excludes</strong> overtime pay, severance pay, shift differentials, nonproduction bonuses, employer cost for supplementary benefits, and tuition reimbursement. Annual and performance bonuses generally fall under &ldquo;nonproduction bonuses&rdquo; and are therefore excluded. Equity and stock compensation are not collected as wages either. For roles where bonus or equity is a large share of pay, the gap between the figure here and total compensation can be very large.</p>
+
+<h3>No cost-of-living adjustment</h3>
+<p>A $95,000 mean in California and a $95,000 mean in Mississippi are not equivalent standards of living. We publish nominal wages only and do not adjust for regional prices. Comparing states on this site compares pay, not purchasing power.</p>
+
+<h3>State-level means hide within-state variation</h3>
+<p>A single state figure averages across very different labor markets — a statewide mean for New York blends Manhattan with rural counties. BLS publishes metropolitan-area estimates that capture this; SignalBleed currently does not.</p>
+
+<h3>Occupations are defined by BLS, not by job titles</h3>
+<p>OEWS uses the Standard Occupational Classification system. Employer job titles frequently don't map cleanly onto SOC categories, and a single SOC code can span roles that pay very differently in practice.</p>
+
+<h2>Update schedule</h2>
+<p>BLS publishes one OEWS release per year, typically in spring. When a new release lands, we download it, regenerate every page from the new file, and update the release label sitewide. We do not blend releases or carry forward figures from prior years — each rebuild replaces the data entirely.</p>
+
+<h2>Reproducing our numbers</h2>
+<ol>
+<li>Download the current OEWS complete archive from the <a href="https://www.bls.gov/oes/tables.htm" target="_blank" rel="noopener">BLS tables page</a>.</li>
+<li>Open the all-data file and filter to <code>AREA_TYPE = 2</code> and <code>O_GROUP = detailed</code>.</li>
+<li>Find your occupation code and state. The <code>A_MEAN</code>, <code>A_PCT10</code>, and <code>A_PCT90</code> columns are the figures we display.</li>
+</ol>
+<div class="callout">
+<p>If a number here doesn't match the BLS file, it's a bug on our end. Email <a href="mailto:hello@signalbleed.com">hello@signalbleed.com</a> with the page URL and we'll correct it.</p>
+</div>
+
+<h2>Attribution</h2>
+<p>Source: U.S. Bureau of Labor Statistics, Occupational Employment and Wage Statistics, May 2025. BLS data is in the public domain. SignalBleed is not affiliated with, endorsed by, or sponsored by the Bureau of Labor Statistics or any U.S. government agency.</p>
+
+</div>
+
+<footer class="footer"><span>&copy; 2026 SignalBleed</span><a href="/about.html">About</a><a href="/methodology.html">Methodology</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/jobs/">All Jobs</a><a href="/states/">All States</a></footer>
+</body>
+</html>
